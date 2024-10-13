@@ -33,11 +33,11 @@ There are products, like the ChipWhisperer range, that are designed for this tas
 
 For the on-off switch itself, we'll be using the ZXMN2F34FH N-channel MOSFET (others like the AO3400 can also be used). It is important that the MOSFET has a short turn on/off delay/rise/fall time.
 
-![N-Channel MOSFET](https://s11.gifyu.com/images/SBFvQ.webp)
+![N-Channel MOSFET](https://s11.gifyu.com/images/SBUR5.jpg)
 
 As the "switch operator", we'll be using an RP2040-Zero, which is based on the RP2040 micro controller.
 
-![RP2040-Zero](https://s1.gifyu.com/images/SBFmD.gif)
+![RP2040-Zero](https://s11.gifyu.com/images/SBURO.jpg)
 
 The reason for using the RP2040 micro controller is because of it's Programmable IO (PIO) state machines. PIO allows for building a device that can toggle GPIO pins very fast (less than 10ns), compared to traditional micro controllers.
 
