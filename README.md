@@ -25,7 +25,7 @@ To perform a voltage glitching attack, we need to be able to "turn the power off
 
 So, conceptually, what we will be building is a programmable on-off switch, that can toggle really fast.
 
-![Switch and switch controller](https://s1.gifyu.com/images/SBFE9.gif =250x)
+![Switch and switch controller](https://s1.gifyu.com/images/SBFE9.gif)
 
 For the on-off switch itself, we'll be using a MOSFET that reacts very quickly, and for the "switch operator" (which is responsible for flipping the on-off switch), we'll be using a micro controller.
 
@@ -33,11 +33,11 @@ There are products, like the ChipWhisperer range, that are designed for this tas
 
 For the on-off switch itself, we'll be using the ZXMN2F34FH N-channel MOSFET (others like the AO3400 can also be used). It is important that the MOSFET has a short turn on/off delay/rise/fall time.
 
-![N-Channel MOSFET](https://s11.gifyu.com/images/SBFvQ.webp =250x)
+![N-Channel MOSFET](https://s11.gifyu.com/images/SBFvQ.webp)
 
 As the "switch operator", we'll be using an RP2040-Zero, which is based on the RP2040 micro controller.
 
-![RP2040-Zero](https://s1.gifyu.com/images/SBFmD.gif =250x)
+![RP2040-Zero](https://s1.gifyu.com/images/SBFmD.gif)
 
 The reason for using the RP2040 micro controller is because of it's Programmable IO (PIO) state machines. PIO allows for building a device that can toggle GPIO pins very fast (less than 10ns), compared to traditional micro controllers.
 
