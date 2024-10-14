@@ -115,3 +115,48 @@ void loop() {
   }
 }
 ```
+
+## Where to glitch?
+
+When trying to do a voltage glitching attack against a micro controller, it's most effective to target the power domains closest to the core, rather than the main power rail, as this offers more precise control over the critical operations we aim to disrupt.
+
+It’s important to review the micro controller's datasheet to understand the various power domains and how they are intended to be implemented. When evaluating the target board, pay close attention to decoupling capacitors connected to these power domains, as they often provide convenient points for injecting glitches.
+
+In the case of the STM32 Blue Pill board, most VDD inputs share the same power rail with multiple decoupling capacitors. This means we can experiment with injecting glitches at different points along the power rail to determine which location gives the best results. To get the best results, it's recommended to inject the glitch as physically close to the core as possible.
+
+In my experience, injecting at the **C6** capacitor consistently produces positive results. This capacitor is relatively large, which makes it easier to attach a wire to it. Since we’re pulling the line to ground, make sure that the wire is connected to the positive side of the capacitor.
+
+## Hooking it up
+
+It is recommended to provide the target with a stable power supply, so we connect our lab PSU with 3.3V to the 3V3 power rail at the short end of the board.
+
+We then connect the ground pins on our glitching device and the target device, the reset pins and the serial TX (A2 on the target board) to the glitcher's RX pin. And last but not least, we connect the wire on the C6 capacitor to the glitch pin on the glitching device.
+
+| What   | Blue Pill | Glitcher
+|--------|-----------|---------
+| Serial | A2 | RX
+| VDD    | C6 | Glitch Target
+| Ground | GND | GND
+| Reset  | R | RST
+
+There are two test points on the glitcher board, "Glitch Enable" and "Glitch Target". We connect two oscilloscope probes to these points to monitor the glitches.
+
+**Glitch Enable** monitors the output signal from the RP2040-Zero sent to the MOSFET, and serves as a nice trigger point for the scope. 
+
+**Glitch Target** monitors the actual effect of the glitch (the line being pulled down to ground). Here you should see the voltage regulator and capacitors working to recover from the glitches.
+
+## Using the glitcher
+
+Once everything is hooked up, we connect the USB-C cable to the glitching device.
+
+The glitching device runs MicroPython, which is a Python implementation that runs on the bare metal of the RP2040.
+
+The `rp-glitcher/glitch.py` script can be loaded onto this and will expose a `Target`-object that allows you to interact with the STM32 target (inject glitches, reset the target board and read from serial).
+
+```python
+
+t.read()
+t.reset()
+t.glitch(20)
+t.glitch_loop(5, 20)
+```
