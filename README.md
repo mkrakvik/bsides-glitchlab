@@ -51,7 +51,7 @@ Test was performed on a RP2040-Zero board with default clock speed.
 
 Adding some bells and whistles, such as a serial interface for monitoring our target, a reset pin so that we can programmatically reset the target and a few test points for hooking up our oscilloscope, we end up with a board like this:
 
-![rp2040 glitcher](https://s1.gifyu.com/images/SBFl3.jpg =550x)
+![rp2040 glitcher](https://s1.gifyu.com/images/SBFl3.jpg)
 
 # Our target device and firmware
 
